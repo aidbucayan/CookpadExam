@@ -1,4 +1,4 @@
-package com.bucayan.adrian.cookpadexam;
+package com.bucayan.adrian.cookpadexam.Utils;
 
 /**
  * @author Adrian Bucayan on 12/15/2016.

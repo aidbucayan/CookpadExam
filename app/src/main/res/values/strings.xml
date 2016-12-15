@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">CookpadExam</string>
 
-    <string name="instagram_client_id">f83f9ea46fe14ff6a202cc17a7e2c06a</string>
-    <string name="instagram_client_secret">78e07a679f524d2795a80574d7ddd92b</string>
-    <string name="instagram_redirect_uri">http://www.picturepostie.com/</string>
+    <string name="login_with_instagram">Login with Instagram</string>
+    <string name="logout_with_instagram">Disconnect with Instagram</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

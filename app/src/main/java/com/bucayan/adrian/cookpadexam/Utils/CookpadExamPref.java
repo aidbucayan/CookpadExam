@@ -1,4 +1,4 @@
-package com.bucayan.adrian.cookpadexam;
+package com.bucayan.adrian.cookpadexam.Utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -41,6 +41,11 @@ public class CookpadExamPref {
         editor.apply();
     }
 
-
+    public void resetAccessToken() {
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putString(PREFERENCE_INSTAGRAM_CODE, null);
+        editor.putString(PREFERENCE_INSTAGRAM_TOKEN_ID, null);
+        editor.apply();
+    }
 
 }

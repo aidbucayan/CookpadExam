@@ -1,15 +1,17 @@
 package com.bucayan.adrian.cookpadexam.Model;
 
+import java.io.Serializable;
+
 /**
  * @author Adrian Bucayan on 12/15/2016.
  */
-public class User {
+public class User implements Serializable {
 
     private String website;
     private String username;
-    private String profilePicture;
+    private String profile_picture;
     private String id;
-    private String fullName;
+    private String full_name;
     private String bio;
 
     public String getWebsite() {
@@ -28,12 +30,12 @@ public class User {
         this.username = username;
     }
 
-    public String getProfilePicture() {
-        return profilePicture;
+    public String getProfile_picture() {
+        return profile_picture;
     }
 
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
+    public void setProfile_picture(String profile_picture) {
+        this.profile_picture = profile_picture;
     }
 
     public String getId() {
@@ -44,12 +46,12 @@ public class User {
         this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFull_name() {
+        return full_name;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
     }
 
     public String getBio() {
@@ -59,6 +61,4 @@ public class User {
     public void setBio(String bio) {
         this.bio = bio;
     }
-
-
 }

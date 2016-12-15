@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.bucayan.adrian.cookpadexam.Fragment.WelcomeFragment"
+    android:weightSum="1">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/welcome_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Welcome"
+        android:textAllCaps="true"
+        android:maxLines="3"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/welcome_pic"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_margin="20dp"
+        android:layout_gravity="center" />
+
+
+</LinearLayout>
