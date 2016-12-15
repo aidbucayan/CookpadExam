@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CookpadExam</string>
+
+    <string name="instagram_client_id">f83f9ea46fe14ff6a202cc17a7e2c06a</string>
+    <string name="instagram_client_secret">78e07a679f524d2795a80574d7ddd92b</string>
+    <string name="instagram_redirect_uri">http://www.picturepostie.com/</string>
+
+</resources>
