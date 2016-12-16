@@ -13,6 +13,7 @@ public class User implements Serializable {
     private String id;
     private String full_name;
     private String bio;
+    private Counts counts;
 
     public String getWebsite() {
         return website;
@@ -61,4 +62,14 @@ public class User implements Serializable {
     public void setBio(String bio) {
         this.bio = bio;
     }
+
+    public Counts getCounts() {
+        return counts;
+    }
+
+    public void setCounts(Counts counts) {
+        this.counts = counts;
+    }
+
+
 }

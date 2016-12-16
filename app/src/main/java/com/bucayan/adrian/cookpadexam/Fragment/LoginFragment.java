@@ -24,10 +24,7 @@ import com.bucayan.adrian.cookpadexam.MainActivity;
 import com.bucayan.adrian.cookpadexam.Model.Token;
 import com.bucayan.adrian.cookpadexam.Model.User;
 import com.bucayan.adrian.cookpadexam.R;
-import com.bucayan.adrian.cookpadexam.Utils.CookpadExamPref;
 import com.bucayan.adrian.cookpadexam.Utils.InstagramData;
-
-import java.io.Serializable;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -44,8 +41,6 @@ public class LoginFragment extends BaseFragment {
     private Button instagramBtn;
     private WebView webView;
     private LinearLayout webViewLayout;
-
-    private CookpadExamPref mCookpadExamPreferences;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -66,8 +61,6 @@ public class LoginFragment extends BaseFragment {
         instagramBtn = (Button) view.findViewById(R.id.btn_instagram);
         webViewLayout = (LinearLayout)  view.findViewById(R.id.layout_webView);
         webView = (WebView)  view.findViewById(R.id.webView);
-
-        mCookpadExamPreferences = new CookpadExamPref(getActivity());
 
         instagramBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +133,13 @@ public class LoginFragment extends BaseFragment {
             public void onResponse(Response<Token> response, Retrofit retrofit) {
                 if(response.isSuccess()) {
                     Token token = response.body();
+
+                    // save in preferences
                     mCookpadExamPreferences.setInstagramTokenId(token.getAccess_token());
+                    mCookpadExamPreferences.setUserName(token.getUser().getUsername());
+                    mCookpadExamPreferences.setId(token.getUser().getId());
+                    mCookpadExamPreferences.setFullName(token.getUser().getFull_name());
+
                     Log.d(TAG, "Instagram Token = " + token.getAccess_token());
 
                     instagramBtn.setText(getString(R.string.logout_with_instagram));

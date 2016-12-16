@@ -3,6 +3,7 @@
 
     <string name="login_with_instagram">Login with Instagram</string>
     <string name="logout_with_instagram">Disconnect with Instagram</string>
+    <string name="view_post_images">View Post Images</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
