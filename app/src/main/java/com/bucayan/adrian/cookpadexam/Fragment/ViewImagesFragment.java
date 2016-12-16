@@ -91,6 +91,9 @@ public class ViewImagesFragment extends BaseFragment {
 
     }
 
+    /**
+     * Fetching all the Media data of the User thru API calls
+     */
     private void fetchImages() {
 
         progress = ProgressDialog.show(getActivity(), "Loading", "Please wait..", true);

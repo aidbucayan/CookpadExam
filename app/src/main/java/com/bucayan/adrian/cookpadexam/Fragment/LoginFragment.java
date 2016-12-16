@@ -2,6 +2,7 @@ package com.bucayan.adrian.cookpadexam.Fragment;
 
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -41,6 +42,7 @@ public class LoginFragment extends BaseFragment {
     private Button instagramBtn;
     private WebView webView;
     private LinearLayout webViewLayout;
+    private ProgressDialog progress;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -62,12 +64,21 @@ public class LoginFragment extends BaseFragment {
         webViewLayout = (LinearLayout)  view.findViewById(R.id.layout_webView);
         webView = (WebView)  view.findViewById(R.id.webView);
 
+
+        progress = ProgressDialog.show(getActivity(), "Loading", "Please wait..", true);
+        progress.setCancelable(false);
+        progress.dismiss();
+
         instagramBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mCookpadExamPreferences.getInstagramTokenId() == null) {
                     instagramBtn.setVisibility(View.GONE);
                     webViewLayout.setVisibility(View.VISIBLE);
+
+                    progress.show();
+
+                    // Load Url for authorization
                     webView.loadUrl("https://api.instagram.com/oauth/authorize/?client_id=" + InstagramData.CLIENT_ID +
                             "&redirect_uri=" + InstagramData.CALLBACK_URL + "&response_type=code&display=touch&scope=likes+comments+relationships");
                 } else {
@@ -102,6 +113,8 @@ public class LoginFragment extends BaseFragment {
 
                     getAccessToken(urls[1]);
                 }
+
+                progress.dismiss();
             }
         });
 
@@ -112,13 +125,20 @@ public class LoginFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        progress.dismiss();
         if (mCookpadExamPreferences.getInstagramTokenId() == null)
             instagramBtn.setText(getString(R.string.login_with_instagram));
         else
             instagramBtn.setText(getString(R.string.logout_with_instagram));
     }
 
+
+    /**
+     * Getting the access token from Instagram
+     */
     private void getAccessToken(String code) {
+
+        progress.show();
 
         // save Instagram code on shared preferences
         mCookpadExamPreferences.setInstagramCode(code);
@@ -132,6 +152,7 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onResponse(Response<Token> response, Retrofit retrofit) {
                 if(response.isSuccess()) {
+                    progress.dismiss();
                     Token token = response.body();
 
                     // save in preferences
@@ -147,18 +168,23 @@ public class LoginFragment extends BaseFragment {
                     toWelcomeFragment(token.getUser());
                 } else {
                     //Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_LONG).show();
+                    progress.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
                 Toast.makeText(getActivity(), "Failure " + t.getMessage(), Toast.LENGTH_LONG).show();
+                progress.dismiss();
             }
 
         });
 
     }
 
+    /**
+     * Go to Welcomefragment with Bundles of User data
+     */
     private void toWelcomeFragment(User user) {
         WelcomeFragment welcomeFragment = new WelcomeFragment();
 

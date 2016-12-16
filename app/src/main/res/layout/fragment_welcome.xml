@@ -6,7 +6,6 @@
     tools:context="com.bucayan.adrian.cookpadexam.Fragment.WelcomeFragment"
     android:weightSum="1">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/welcome_name"
         android:layout_width="match_parent"

@@ -42,16 +42,17 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.Holder>  {
     public void onBindViewHolder(final Holder holder, final int position) {
         final ImageData finalImageData = mImageDataList.get(position);
 
-        //holder.registration.setText(mRegistrationResponse.getRegistration().toUpperCase());
-
         Picasso.with(holder.itemView.getContext())
                 .load(finalImageData.getImages().getStandard_resolution().getUrl())
                 .resize(300, 300)
                 .centerCrop()
                 .into(holder.mImageView);
 
-        holder.mCaption.setText(finalImageData.getCaption().getText());
-        holder.mLikes.setText(finalImageData.getLikes().getCount() + " Likes");
+        if(finalImageData.getCaption() != null)
+            holder.mCaption.setText(finalImageData.getCaption().getText() + "");
+
+        if(finalImageData.getLikes() != null)
+            holder.mLikes.setText(finalImageData.getLikes().getCount() + " Likes");
     }
 
     @Override

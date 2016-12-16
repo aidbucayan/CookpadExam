@@ -2,6 +2,7 @@ package com.bucayan.adrian.cookpadexam.Fragment;
 
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -41,6 +42,7 @@ public class WelcomeFragment extends BaseFragment {
     private ImageView mIvProfilePic;
     private Button mBtnViewImages;
     private Counts count;
+    private ProgressDialog progress;
 
     public WelcomeFragment() {
         // Required empty public constructor
@@ -57,7 +59,12 @@ public class WelcomeFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Getting the Serializable user from Bundles
         mUser = (User) getArguments().getSerializable("user");
+
+        progress = ProgressDialog.show(getActivity(), "Loading", "Please wait..", true);
+        progress.setCancelable(false);
+        progress.dismiss();
 
         mTvName = (TextView) view.findViewById(R.id.welcome_name);
         mTvName.setText("WELCOME " + mUser.getFull_name() + "!");
@@ -67,13 +74,14 @@ public class WelcomeFragment extends BaseFragment {
         mTvFollower = (TextView) view.findViewById(R.id.welcome_followers_tv);
 
         mIvProfilePic = (ImageView) view.findViewById(R.id.welcome_pic);
+
+        // Load profile picture from Instagram
         Picasso.with(getActivity())
                 .load(mUser.getProfile_picture())
                 .transform(new CircleTransform())
                 .resize(300, 300)
                 .centerCrop()
                 .into(mIvProfilePic);
-        //.placeholder(R.mipmap.img_profile_pic).error(R.mipmap.img_profile_pic)
 
         fetchUserDetails();
 
@@ -86,6 +94,9 @@ public class WelcomeFragment extends BaseFragment {
         });
     }
 
+    /**
+     * Go to List of Images posted by the User with Bundles of Count post
+     */
     private void gotoViewImages() {
         ViewImagesFragment viewImagesFragment = new ViewImagesFragment();
 
@@ -107,10 +118,15 @@ public class WelcomeFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-
+        progress.dismiss();
     }
 
+    /**
+     * Fetching API to get User Details
+     */
     private void fetchUserDetails() {
+        progress.show();
+
         final AuthenticationService authenticationService = ServiceGenerator.getInstance().getAuthenticationService();
         Call<UserInfo> getUserDetailsTask = authenticationService.getUserDetails(
                 mCookpadExamPreferences.getId(), mCookpadExamPreferences.getInstagramTokenId());
@@ -127,12 +143,14 @@ public class WelcomeFragment extends BaseFragment {
                     mTvFollower.setText(user.getCounts().getFollowed_by() + " Followers");
 
                     count = user.getCounts();
+                } else {
+                    progress.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
-
+                progress.dismiss();
             }
         });
     }
